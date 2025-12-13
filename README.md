@@ -4,12 +4,12 @@
 ## Tasks
 #### 1. create functions for the following itmes and test them in your browser's console:
 
-- [ ] add
-- [ ] subtract
-- [ ] multiply
-- [ ] divide   
+- [x] add
+- [x] subtract
+- [x] multiply
+- [x] divide   
 #### 2. 
-- [ ] Create a new function `operate` that takes an operator and two numbers and then calls one of the above functions on the numbers.
+- [x] Create a new function `operate` that takes an operator and two numbers and then calls one of the above functions on the numbers.
 
 #### 3. Create a basic HTML calculator with:
 - [ ] buttons for each digit and operator (including =).
