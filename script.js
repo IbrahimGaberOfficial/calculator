@@ -23,19 +23,20 @@ function operate(operator = "", num1 = 1, num2 = 1) {
     case "+":
       return add(num1, num2);
     //   break;
-    
+
     case "-":
       return subtract(num1, num2);
     //   break;
-    
+
     case "*":
       return multiply(num1, num2);
     //   break;
-    
+
     case "/":
+    case "÷":
       return divide(num1, num2);
     //   break;
-    
+
     default:
       break;
   }
