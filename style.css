@@ -79,7 +79,12 @@
 }
 
 #equal {
-  margin-top: 10px;
-  margin-bottom: 2px;
+  margin: 10px 0px 0px 5px;
   background-color: #78b370;
+  height: 50px;
+  width: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
