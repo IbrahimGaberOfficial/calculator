@@ -23,7 +23,7 @@ function operate(operator = "", num1 = 1, num2 = 1) {
     case "+":
       return add(num1, num2);
     //   break;
-
+    case "−":
     case "-":
       return subtract(num1, num2);
     //   break;
@@ -45,52 +45,56 @@ function operate(operator = "", num1 = 1, num2 = 1) {
 const numbers = document.querySelectorAll(".number");
 const display = document.querySelector("#display");
 const clear = document.querySelector("#clear");
-const operators = document.querySelectorAll('.operator');
-const equal = document.querySelector('#equal')
+const operators = document.querySelectorAll(".operator");
+const equal = document.querySelector("#equal");
 let firstNumber = 0;
 let secondNumber = 0;
 let operator = "";
 
-numbers.forEach((element)=>{
-  element.addEventListener("click",(e)=>{
+numbers.forEach((element) => {
+  element.addEventListener("click", (e) => {
     display.textContent += element.textContent;
-  })
-})
-operators.forEach((element)=>{
-  element.addEventListener('click', (e)=>{
+  });
+});
+operators.forEach((element) => {
+  element.addEventListener("click", (e) => {
     /**
      * if display have numbers
      *    store it and clear the display
-     * else 
+     * else
      *    ignore
-     * 
-     * if we have previous operator 
+     *
+     * if we have previous operator
      */
     // store number in the display if existed
-    // 
+    //
     // store the current operator if not existed
 
-    // if(operator.length == 0){ // no waited operations
+    if (operator.length == 0) {
+      // no waited operations
       firstNumber = parseInt(display.textContent);
       operator = element.textContent;
       display.textContent = "";
-    // }
-    // else{
+    } else {
+      equal.dispatchEvent(new Event("click"));
+      operator = element.textContent;
+    }
+  });
+});
 
-    // }
-  })
-})
-
-equal.addEventListener('click', (e)=>{
+equal.addEventListener("click", (e) => {
   secondNumber = parseInt(display.textContent);
   let result = operate(operator, firstNumber, secondNumber);
-  display.textContent = result;
-})
+  display.textContent = `${result}`;
 
-clear.addEventListener('click', ()=>{
+  firstNumber = result;
+  secondNumber = 0;
+  operator = "";
+});
+
+clear.addEventListener("click", () => {
   display.textContent = "";
-})
-
-
-
-
+  operator = "";
+  firstNumber = 0;
+  secondNumber = 0;
+});
