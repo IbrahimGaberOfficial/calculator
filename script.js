@@ -41,3 +41,23 @@ function operate(operator = "", num1 = 1, num2 = 1) {
       break;
   }
 }
+
+const numbers = document.querySelectorAll(".number");
+const display = document.querySelector("#display");
+const clear = document.querySelector("#clear");
+
+let firstNumber = 0;
+let secondNumber = 0;
+let operator = "";
+
+numbers.forEach((element)=>{
+  element.addEventListener("click",(e)=>{
+    display.textContent += element.textContent;
+  })
+})
+
+clear.addEventListener('click', ()=>{
+  display.textContent = "";
+})
+
+

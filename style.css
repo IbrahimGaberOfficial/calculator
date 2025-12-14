@@ -31,10 +31,12 @@
   flex-direction: column;
 }
 .display {
-  width: 86%;
+  overflow-wrap: break-word;
+  width: 82%;
   height: 50px;
   background-color: #ebd7b5;
   align-self: auto;
+  padding: 5px;
 }
 
 .number,
