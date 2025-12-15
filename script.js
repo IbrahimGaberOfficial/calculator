@@ -74,9 +74,9 @@ numbers.forEach((element) => {
 
 operators.forEach((element) => {
   element.addEventListener("click", (e) => {
-    deActivateOperatorBG();
-    element.style.backgroundColor = "#c6e2c7ff";
-    if (display.textContent.length > 0) {
+    if (display.textContent.trim().length > 0 && !pressedOperator) {
+      deActivateOperatorBG();
+      element.style.backgroundColor = "#c6e2c7ff";
       if (!havWaitedOperations) {
         // start state
         // no waited operations
@@ -99,12 +99,13 @@ operators.forEach((element) => {
 });
 
 equal.addEventListener("click", (e) => {
-  if (display.textContent.length > 0 && operator != "") {
+  if (display.textContent.trim().length > 0 && operator != "") {
     secondNumber = parseInt(display.textContent);
     let result = operate(operator, firstNumber, secondNumber);
     display.textContent = `${result}`;
     deActivateOperatorBG();
     havWaitedOperations = false;
+    pressedOperator = false;
     operator = "";
   }
 });
