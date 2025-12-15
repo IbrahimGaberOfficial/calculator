@@ -55,16 +55,18 @@ const equal = document.querySelector("#equal");
 
 let havWaitedOperations = false;
 let pressedOperator = false;
+let shownResult = false;
 let firstNumber = 0;
 let secondNumber = 0;
 let operator = "";
 
 numbers.forEach((element) => {
   element.addEventListener("click", (e) => {
-    if (pressedOperator) {
+    if (pressedOperator || shownResult) {
       deActivateOperatorBG();
       display.textContent = element.textContent;
       pressedOperator = false;
+      shownResult = false;
     } else {
       display.textContent += element.textContent;
     }
@@ -90,6 +92,7 @@ operators.forEach((element) => {
 
         operator = element.textContent;
         display.textContent = `${result}`;
+        shownResult = true;
         pressedOperator = true;
         firstNumber = result;
         havWaitedOperations = true;
@@ -106,6 +109,7 @@ equal.addEventListener("click", (e) => {
     deActivateOperatorBG();
     havWaitedOperations = false;
     pressedOperator = false;
+    shownResult = true;
     operator = "";
   }
 });
@@ -113,6 +117,7 @@ equal.addEventListener("click", (e) => {
 clear.addEventListener("click", () => {
   deActivateOperatorBG();
   havWaitedOperations = false;
+  shownResult = true;
   display.textContent = "";
   operator = "";
   firstNumber = 0;
