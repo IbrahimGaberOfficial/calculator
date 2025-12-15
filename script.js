@@ -11,7 +11,7 @@ function multiply(num1 = 1, num2 = 1) {
 }
 
 function divide(num1 = 1, num2 = 1) {
-  return num1 / num2;
+  return Math.floor(num1 / num2);
 }
 
 /**
@@ -23,6 +23,7 @@ function operate(operator = "", num1 = 1, num2 = 1) {
     case "+":
       return add(num1, num2);
     //   break;
+
     case "−":
     case "-":
       return subtract(num1, num2);
@@ -42,42 +43,59 @@ function operate(operator = "", num1 = 1, num2 = 1) {
   }
 }
 
+function deActivateOperatorBG() {
+  operators.forEach((e) => (e.style.backgroundColor = "#cdcacc"));
+}
+
 const numbers = document.querySelectorAll(".number");
 const display = document.querySelector("#display");
 const clear = document.querySelector("#clear");
 const operators = document.querySelectorAll(".operator");
 const equal = document.querySelector("#equal");
+
+let havWaitedOperations = false;
+let pressedOperator = false;
 let firstNumber = 0;
 let secondNumber = 0;
 let operator = "";
 
 numbers.forEach((element) => {
   element.addEventListener("click", (e) => {
-    display.textContent += element.textContent;
+    if (pressedOperator) {
+      deActivateOperatorBG();
+      display.textContent = element.textContent;
+      pressedOperator = false;
+    } else {
+      display.textContent += element.textContent;
+    }
   });
+  element.addEventListener("click", (e) => {});
 });
+
 operators.forEach((element) => {
   element.addEventListener("click", (e) => {
-    /**
-     * if display have numbers
-     *    store it and clear the display
-     * else
-     *    ignore
-     *
-     * if we have previous operator
-     */
-    // store number in the display if existed
-    //
-    // store the current operator if not existed
-
-    if (operator.length == 0) {
-      // no waited operations
-      firstNumber = parseInt(display.textContent);
-      operator = element.textContent;
-      display.textContent = "";
-    } else {
-      equal.dispatchEvent(new Event("click"));
-      operator = element.textContent;
+    deActivateOperatorBG();
+    element.style.backgroundColor = "#c6e2c7ff";
+    if (display.textContent.length > 0) {
+      if (!havWaitedOperations) {
+        // start state
+        // no waited operations
+        firstNumber = parseInt(display.textContent);
+        operator = element.textContent;
+        pressedOperator = true;
+        // display.textContent = "";
+      } else {
+        secondNumber = parseInt(display.textContent);
+        let result = operate(operator, firstNumber, secondNumber);
+        operator = element.textContent;
+        display.textContent = "";
+        display.textContent = `${result}`;
+      }
+      // secondNumber = parseInt(display.textContent);
+      // let result = operate(operator, firstNumber, secondNumber);
+      // operator = element.textContent;
+      // display.textContent = "";
+      // display.textContent = `${result}`;
     }
   });
 });
@@ -86,6 +104,7 @@ equal.addEventListener("click", (e) => {
   secondNumber = parseInt(display.textContent);
   let result = operate(operator, firstNumber, secondNumber);
   display.textContent = `${result}`;
+  deActivateOperatorBG();
 
   firstNumber = result;
   secondNumber = 0;
@@ -93,6 +112,7 @@ equal.addEventListener("click", (e) => {
 });
 
 clear.addEventListener("click", () => {
+  deActivateOperatorBG();
   display.textContent = "";
   operator = "";
   firstNumber = 0;
