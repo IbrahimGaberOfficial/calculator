@@ -83,36 +83,35 @@ operators.forEach((element) => {
         firstNumber = parseInt(display.textContent);
         operator = element.textContent;
         pressedOperator = true;
-        // display.textContent = "";
+        havWaitedOperations = true;
       } else {
         secondNumber = parseInt(display.textContent);
         let result = operate(operator, firstNumber, secondNumber);
+
         operator = element.textContent;
-        display.textContent = "";
         display.textContent = `${result}`;
+        pressedOperator = true;
+        firstNumber = result;
+        havWaitedOperations = true;
       }
-      // secondNumber = parseInt(display.textContent);
-      // let result = operate(operator, firstNumber, secondNumber);
-      // operator = element.textContent;
-      // display.textContent = "";
-      // display.textContent = `${result}`;
     }
   });
 });
 
 equal.addEventListener("click", (e) => {
-  secondNumber = parseInt(display.textContent);
-  let result = operate(operator, firstNumber, secondNumber);
-  display.textContent = `${result}`;
-  deActivateOperatorBG();
-
-  firstNumber = result;
-  secondNumber = 0;
-  operator = "";
+  if (display.textContent.length > 0 && operator != "") {
+    secondNumber = parseInt(display.textContent);
+    let result = operate(operator, firstNumber, secondNumber);
+    display.textContent = `${result}`;
+    deActivateOperatorBG();
+    havWaitedOperations = false;
+    operator = "";
+  }
 });
 
 clear.addEventListener("click", () => {
   deActivateOperatorBG();
+  havWaitedOperations = false;
   display.textContent = "";
   operator = "";
   firstNumber = 0;
